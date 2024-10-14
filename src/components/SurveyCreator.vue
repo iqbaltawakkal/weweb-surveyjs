@@ -10,6 +10,11 @@ import 'survey-creator-core/survey-creator-core.i18n.js'
 import 'survey-core/defaultV2.min.css'
 import 'survey-creator-core/survey-creator-core.min.css'
 
+const props = defineProps({
+  showLogicTab: { type: Boolean, default: true },
+  showJSONEditorTab: { type: Boolean, default: true },
+})
+
 class SurveyTemplatesTabPlugin {
   constructor(creator) {
     this.model = creator
@@ -23,8 +28,8 @@ class SurveyTemplatesTabPlugin {
 }
 
 const options = {
-  showLogicTab: true,
-  showJSONEditorTab: true
+  showLogicTab: props.showLogicTab,
+  showJSONEditorTab: props.showJSONEditorTab
 }
 const creator = new SurveyCreatorModel(options)
 new SurveyTemplatesTabPlugin(creator)
