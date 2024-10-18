@@ -1,6 +1,7 @@
 <template>
   <SurveyCreator :key="updateComponent" :showLogicTab="content.showLogicTab"
-    :showJSONEditorTab="content.showJSONEditorTab" />
+    :showJSONEditorTab="content.showJSONEditorTab" :showThemeTab="content.showThemeTab"
+    :themeColor="content.themeColor" />
 </template>
 
 <script setup>
