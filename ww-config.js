@@ -15,9 +15,9 @@ export default {
             defaultValue: '',
             bindable: true,
         },
-        idComponentBind: {
+        componentBind: {
             label: {
-                en: 'Content variable id',
+                en: 'Content variable',
             },
             type: 'Text',
             defaultValue: '',

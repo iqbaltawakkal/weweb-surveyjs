@@ -18,7 +18,7 @@ const props = defineProps({
   showJSONEditorTab: { type: Boolean },
   showThemeTab: { type: Boolean },
   themeColor: { type: String },
-  idComponentBind: { type: String },
+  componentBind: { type: String },
   licenseKey: { type: String },
   showBoolean: { type: Boolean },
   showCheckbox: { type: Boolean },
@@ -92,7 +92,7 @@ creator.saveSurveyFunc = function (saveNo, callback) {
   callback(saveNo, true)
 }
 
-if (props.idComponentBind) creator.text = wwLib.wwVariable.getValue(props.idComponentBind)
+if (props.componentBind) creator.text = typeof props.componentBind === 'string' ? props.componentBind : JSON.stringify(props.componentBind);
 
 onMounted(() => {
   document.documentElement.style.setProperty('--primary', props.themeColor)
