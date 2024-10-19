@@ -1,7 +1,8 @@
 <template>
-  <SurveyCreator :key="updateComponent" :showLogicTab="content.showLogicTab"
-    :showJSONEditorTab="content.showJSONEditorTab" :showThemeTab="content.showThemeTab"
-    :themeColor="content.themeColor" />
+  <SurveyCreator :key="updateComponent" v-bind="content" @save="e => $emit('trigger-event', {
+    name: 'json:save',
+    event: e,
+  })" />
 </template>
 
 <script setup>
