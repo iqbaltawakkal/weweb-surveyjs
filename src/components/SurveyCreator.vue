@@ -88,7 +88,7 @@ const options = {
 const creator = new SurveyCreatorModel(options)
 new SurveyTemplatesTabPlugin(creator)
 creator.saveSurveyFunc = function (saveNo, callback) {
-  emit('save', creator.text)
+  emits('save', creator.text)
   callback(saveNo, true)
 }
 
