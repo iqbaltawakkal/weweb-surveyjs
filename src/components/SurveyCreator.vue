@@ -92,9 +92,8 @@ creator.saveSurveyFunc = function (saveNo, callback) {
   callback(saveNo, true)
 }
 
-if (props.componentBind) creator.text = typeof props.componentBind === 'string' ? props.componentBind : JSON.stringify(props.componentBind);
-
 onMounted(() => {
   document.documentElement.style.setProperty('--primary', props.themeColor)
+  if (props.componentBind) creator.text = typeof props.componentBind === 'string' ? props.componentBind : JSON.stringify(props.componentBind);
 })
 </script>
