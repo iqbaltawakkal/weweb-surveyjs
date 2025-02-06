@@ -6,6 +6,7 @@
     "serve": "weweb serve"
   },
   "dependencies": {
+    "prismjs": "^1.29.0",
     "survey-core": "latest",
     "survey-creator-core": "latest",
     "survey-creator-vue": "latest",
