@@ -28,6 +28,7 @@
     <body>
       <div id="surveyElement" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; min-height: 100%; height:100%"></div>
       <script src="./json.js"></script>
+      <script src="./theme.js"></script>
       <script src="./index.js"></script>
     </body>
   </html>`}}   
@@ -39,6 +40,14 @@
                 <pre>
             <code :class="`content-js language-js`">
   {{ json }}   
+            </code>
+          </pre>
+            </div>
+            <div class="custom-component">
+                <div class="svc-custom-embedded-tab__code-header"><span>theme.js</span></div>
+                <pre>
+            <code :class="`content-js language-js`">
+  {{ theme }}   
             </code>
           </pre>
             </div>
@@ -55,9 +64,11 @@ const props = defineProps({
 })
 
 const json = ref('')
+const theme = ref('')
 const index = computed(
     () => `
   const survey = new Survey.Model(json);
+  survey.applyTheme(theme)
   survey.onComplete.add((sender, options) => {
       fetch("${props.model.surveyApiUrl || 'https://example.com/api/data'}", {
         method: 'POST',
@@ -73,6 +84,7 @@ const index = computed(
 
 onMounted(() => {
     json.value = `const json = ${window._creator.text}`
+    theme.value = `const theme = ${window._creator.theme}`
     setTimeout(() => {
         window.Prism = window.Prism || {}
         window.Prism.manual = true
