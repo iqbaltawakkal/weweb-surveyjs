@@ -84,7 +84,7 @@ const index = computed(
 
 onMounted(() => {
     json.value = `const json = ${window._creator.text}`
-    theme.value = `const theme = ${window._creator.theme}`
+    theme.value = `const theme = ${JSON.stringify(window._creator.theme, null, 4)}`
     setTimeout(() => {
         window.Prism = window.Prism || {}
         window.Prism.manual = true
