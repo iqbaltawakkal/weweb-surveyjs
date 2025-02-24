@@ -16,7 +16,7 @@ import SurveyEmbedTab from './SurveyEmbedTab.vue'
 const app = getCurrentInstance().appContext.app
 app.component('svc-tab-survey-embed', SurveyEmbedTab)
 
-const emits = defineEmits(['save'])
+const emits = defineEmits(['save', 'theme'])
 const props = defineProps({
   showLogicTab: { type: Boolean },
   showJSONEditorTab: { type: Boolean },
@@ -115,6 +115,10 @@ new SurveyTemplatesTabPlugin(creator)
 creator.saveSurveyFunc = function (saveNo, callback) {
   emits('save', creator.text)
   callback(saveNo, true)
+}
+creator.saveThemeFunc = function (saveNo, callback) {
+  emits('theme', JSON.stringify(creator.theme))
+  callback(saveNo, true);
 }
 
 onMounted(() => {

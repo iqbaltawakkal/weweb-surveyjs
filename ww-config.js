@@ -360,5 +360,10 @@ export default {
             label: { en: 'On json saved' },
             event: '',
         },
+        {
+            name: 'theme:save',
+            label: { en: 'On theme saved' },
+            event: '',
+        },
     ],
 };

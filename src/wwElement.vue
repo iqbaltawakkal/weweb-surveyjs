@@ -2,6 +2,9 @@
   <SurveyCreator :key="updateComponent" v-bind="content" @save="e => $emit('trigger-event', {
     name: 'json:save',
     event: e,
+  })" @theme="e => $emit('trigger-event', {
+    name: 'theme:save',
+    event: e,
   })" />
 </template>
 
