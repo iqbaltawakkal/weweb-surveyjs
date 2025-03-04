@@ -39,6 +39,14 @@ export default {
             defaultValue: '',
             bindable: true,
         },
+        injectedQuestions: {
+            label: {
+                en: 'Injected questions',
+            },
+            type: 'Text',
+            defaultValue: '',
+            bindable: true,
+        },
         fontSize: {
             label: {
                 en: 'Font size',
@@ -358,11 +366,6 @@ export default {
         {
             name: 'json:save',
             label: { en: 'On json saved' },
-            event: '',
-        },
-        {
-            name: 'theme:save',
-            label: { en: 'On theme saved' },
             event: '',
         },
     ],

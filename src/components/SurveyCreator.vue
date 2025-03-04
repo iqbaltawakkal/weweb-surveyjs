@@ -16,7 +16,7 @@ import SurveyEmbedTab from './SurveyEmbedTab.vue'
 const app = getCurrentInstance().appContext.app
 app.component('svc-tab-survey-embed', SurveyEmbedTab)
 
-const emits = defineEmits(['save', 'theme'])
+const emits = defineEmits(['save'])
 const props = defineProps({
   showLogicTab: { type: Boolean },
   showJSONEditorTab: { type: Boolean },
@@ -57,7 +57,8 @@ const props = defineProps({
   showMenuQuizMode: { type: Boolean },
   fontSize: { type: String },
   surveyId: { type: String },
-  surveyApiUrl: { type: String }
+  surveyApiUrl: { type: String },
+  injectedQuestions: { type: [String, Array] }
 })
 
 setLicenseKey(props.licenseKey)
@@ -110,15 +111,24 @@ const options = {
   ].filter(Boolean)
 }
 const creator = new SurveyCreatorModel(options)
-window._creator = creator
 new SurveyTemplatesTabPlugin(creator)
 creator.saveSurveyFunc = function (saveNo, callback) {
-  emits('save', creator.text)
+  preprocessEmitEvent()
   callback(saveNo, true)
 }
 creator.saveThemeFunc = function (saveNo, callback) {
-  emits('theme', JSON.stringify(creator.theme))
-  callback(saveNo, true);
+  preprocessEmitEvent()
+  callback(saveNo, true)
+}
+
+function preprocessEmitEvent() {
+  const injectedQuestions =
+    typeof props.injectedQuestions === 'string'
+      ? JSON.parse(props.injectedQuestions)
+      : props.injectedQuestions
+  const original = JSON.parse(creator.text)
+  original.pages[0].elements.unshift(...injectedQuestions)
+  emits('save', JSON.stringify({ json: original, theme: creator.theme }))
 }
 
 onMounted(() => {
@@ -159,5 +169,10 @@ function showHidePanelMenuDesigner() {
 
 .spg-input {
   align-items: center;
+}
+
+.sv-action-bar-item:not([disabled])[title='Save Theme'] use {
+  fill: var(--ctr-menu-toolbar-button-text-color-selected,
+      var(--sjs-primary-backcolor, var(--primary, #19b394)));
 }
 </style>
