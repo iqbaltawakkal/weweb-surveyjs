@@ -122,12 +122,12 @@ creator.saveThemeFunc = function (saveNo, callback) {
   callback(saveNo, true)
 }
 creator.onGetPropertyReadOnly.add(function (sender, options) {
-  if (props.readOnlyQuestions.includes(options.obj.name)) {
+  if (props.readOnlyQuestions && props.readOnlyQuestions.includes(options.obj.name)) {
     options.readOnly = true
   }
 })
 creator.onElementAllowOperations.add(function (sender, options) {
-  if (props.readOnlyQuestions.includes(options.obj.name)) {
+  if (props.readOnlyQuestions && props.readOnlyQuestions.includes(options.obj.name)) {
     options.allowDelete = false
     options.allowEdit = false
     options.allowCopy = false
@@ -139,7 +139,7 @@ creator.onElementAllowOperations.add(function (sender, options) {
   }
 })
 creator.onElementDeleting.add(function (sender, options) {
-  if (props.readOnlyQuestions.includes(options.obj.name)) {
+  if (props.readOnlyQuestions && props.readOnlyQuestions.includes(options.obj.name)) {
     options.allowing = false;
   }
 })
