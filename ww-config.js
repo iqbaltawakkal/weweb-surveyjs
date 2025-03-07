@@ -47,6 +47,14 @@ export default {
             defaultValue: '',
             bindable: true,
         },
+        readOnlyQuestions: {
+            label: {
+                en: 'Read only questions',
+            },
+            type: 'Text',
+            defaultValue: '',
+            bindable: true,
+        },
         fontSize: {
             label: {
                 en: 'Font size',

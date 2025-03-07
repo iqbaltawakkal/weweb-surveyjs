@@ -58,7 +58,8 @@ const props = defineProps({
   fontSize: { type: String },
   surveyId: { type: String },
   surveyApiUrl: { type: String },
-  injectedQuestions: { type: [String, Array] }
+  injectedQuestions: { type: [String, Array] },
+  readOnlyQuestions: { type: [String, Array] }
 })
 
 setLicenseKey(props.licenseKey)
@@ -120,6 +121,11 @@ creator.saveThemeFunc = function (saveNo, callback) {
   preprocessEmitEvent()
   callback(saveNo, true)
 }
+creator.onGetPropertyReadOnly.add(function (sender, options) {
+  if (props.readOnlyQuestions.includes(options.obj.name)) {
+    options.readOnly = true
+  }
+})
 
 function preprocessEmitEvent() {
   const injectedQuestions =
