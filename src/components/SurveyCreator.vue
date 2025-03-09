@@ -59,7 +59,6 @@ const props = defineProps({
   surveyId: { type: String },
   surveyApiUrl: { type: String },
   injectedQuestions: { type: [String, Array] },
-  readOnlyQuestions: { type: [String, Array] }
 })
 
 setLicenseKey(props.licenseKey)
@@ -122,12 +121,12 @@ creator.saveThemeFunc = function (saveNo, callback) {
   callback(saveNo, true)
 }
 creator.onGetPropertyReadOnly.add(function (sender, options) {
-  if (props.readOnlyQuestions && props.readOnlyQuestions.includes(options.obj.name)) {
+  if (options.obj?.jsonObj?.readOnly) {
     options.readOnly = true
   }
 })
 creator.onElementAllowOperations.add(function (sender, options) {
-  if (props.readOnlyQuestions && props.readOnlyQuestions.includes(options.obj.name)) {
+  if (options.obj?.jsonObj?.readOnly) {
     options.allowDelete = false
     options.allowEdit = false
     options.allowCopy = false
@@ -139,7 +138,7 @@ creator.onElementAllowOperations.add(function (sender, options) {
   }
 })
 creator.onElementDeleting.add(function (sender, options) {
-  if (props.readOnlyQuestions && props.readOnlyQuestions.includes(options.obj.name)) {
+  if (options.obj?.jsonObj?.readOnly) {
     options.allowing = false;
   }
 })
