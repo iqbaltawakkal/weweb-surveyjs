@@ -138,7 +138,7 @@ creator.onElementAllowOperations.add(function (sender, options) {
   }
 })
 creator.onElementDeleting.add(function (sender, options) {
-  if (options.obj?.jsonObj?.readOnly) {
+  if (options.element?.jsonObj?.readOnly) {
     options.allowing = false;
   }
 })
