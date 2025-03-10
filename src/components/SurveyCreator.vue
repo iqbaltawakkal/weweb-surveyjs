@@ -140,6 +140,13 @@ creator.onElementDeleting.add(function (sender, options) {
     options.allowing = false;
   }
 })
+creator.onSelectedElementChanging.add(function (sender, options) {
+  if (options.newSelectedElement?.jsonObj?.readOnly) {
+    creator.showSidebar = false
+  } else {
+    creator.showSidebar = true
+  }
+})
 
 
 function preprocessEmitEvent() {
