@@ -131,7 +131,6 @@ creator.onElementAllowOperations.add(function (sender, options) {
     options.allowEdit = false
     options.allowCopy = false
     options.allowAddToToolbox = false
-    options.allowDragging = false
     options.allowChangeType = false
     options.allowChangeRequired = false
     options.allowShowSettings = false
