@@ -58,7 +58,6 @@ const props = defineProps({
   fontSize: { type: String },
   surveyId: { type: String },
   surveyApiUrl: { type: String },
-  injectedQuestions: { type: [String, Array] },
 })
 
 setLicenseKey(props.licenseKey)
@@ -144,12 +143,7 @@ creator.onElementDeleting.add(function (sender, options) {
 
 
 function preprocessEmitEvent() {
-  const injectedQuestions =
-    typeof props.injectedQuestions === 'string'
-      ? JSON.parse(props.injectedQuestions)
-      : props.injectedQuestions
   const original = JSON.parse(creator.text)
-  original.pages[0].elements.unshift(...injectedQuestions)
   emits('save', JSON.stringify({ json: original, theme: creator.theme }))
 }
 
