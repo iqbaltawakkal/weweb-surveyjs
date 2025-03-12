@@ -119,11 +119,6 @@ creator.saveThemeFunc = function (saveNo, callback) {
   preprocessEmitEvent()
   callback(saveNo, true)
 }
-creator.onGetPropertyReadOnly.add(function (sender, options) {
-  if (options.obj?.jsonObj?.readOnly) {
-    options.readOnly = true
-  }
-})
 creator.onElementAllowOperations.add(function (sender, options) {
   if (options.obj?.jsonObj?.readOnly) {
     options.allowDelete = false
