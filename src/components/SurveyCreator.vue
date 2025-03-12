@@ -58,6 +58,7 @@ const props = defineProps({
   fontSize: { type: String },
   surveyId: { type: String },
   surveyApiUrl: { type: String },
+  themeBind: { type: String }
 })
 
 setLicenseKey(props.licenseKey)
@@ -153,6 +154,7 @@ onMounted(() => {
   document.documentElement.style.setProperty('--primary', props.themeColor)
   document.documentElement.style.setProperty('--sjs-font-size', `${props.fontSize}`)
   if (props.componentBind) creator.text = typeof props.componentBind === 'string' ? props.componentBind : JSON.stringify(props.componentBind);
+  if (props.themeBind) creator.theme = typeof props.themeBind === 'string' ? JSON.parse(props.themeBind) : props.themeBind
   showHidePanelMenuDesigner()
 })
 

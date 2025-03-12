@@ -39,6 +39,14 @@ export default {
             defaultValue: '',
             bindable: true,
         },
+        themeBind: {
+            label: {
+                en: 'Theme variable',
+            },
+            type: 'Text',
+            defaultValue: '',
+            bindable: true,
+        },
         fontSize: {
             label: {
                 en: 'Font size',
