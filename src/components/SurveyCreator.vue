@@ -129,6 +129,7 @@ creator.onElementAllowOperations.add(function (sender, options) {
     options.allowChangeType = false
     options.allowChangeRequired = false
     options.allowShowSettings = false
+    options.allowChangeInputType = false
   }
 })
 creator.onElementDeleting.add(function (sender, options) {
