@@ -10,8 +10,13 @@ import 'survey-core/survey.i18n.js'
 import 'survey-creator-core/survey-creator-core.i18n.js'
 import 'survey-core/defaultV2.min.css'
 import 'survey-creator-core/survey-creator-core.min.css'
-import { setLicenseKey } from 'survey-core'
+import { setLicenseKey, Serializer } from 'survey-core'
 import SurveyEmbedTab from './SurveyEmbedTab.vue'
+
+Serializer.addProperty('question', {
+  name: 'restrict',
+  type: 'boolean'
+})
 
 const app = getCurrentInstance().appContext.app
 app.component('svc-tab-survey-embed', SurveyEmbedTab)
@@ -121,7 +126,7 @@ creator.saveThemeFunc = function (saveNo, callback) {
   callback(saveNo, true)
 }
 creator.onElementAllowOperations.add(function (sender, options) {
-  if (options.obj?.jsonObj?.readOnly) {
+  if (options.obj?.jsonObj?.restrict) {
     options.allowDelete = false
     options.allowEdit = false
     options.allowCopy = false
@@ -133,12 +138,12 @@ creator.onElementAllowOperations.add(function (sender, options) {
   }
 })
 creator.onElementDeleting.add(function (sender, options) {
-  if (options.element?.jsonObj?.readOnly) {
+  if (options.element?.jsonObj?.restrict) {
     options.allowing = false;
   }
 })
 creator.onSelectedElementChanging.add(function (sender, options) {
-  if (options.newSelectedElement?.jsonObj?.readOnly) {
+  if (options.newSelectedElement?.jsonObj?.restrict) {
     creator.showSidebar = false
   } else {
     creator.showSidebar = true
