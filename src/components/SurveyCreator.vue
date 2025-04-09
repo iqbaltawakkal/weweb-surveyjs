@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { getCurrentInstance, onMounted } from 'vue'
+import { getCurrentInstance, onMounted, computed } from 'vue'
 import { SurveyCreatorModel } from 'survey-creator-core'
 import { SurveyCreatorComponent } from 'survey-creator-vue'
 import 'survey-core/survey.i18n.js'
@@ -161,22 +161,22 @@ onMounted(() => {
   document.documentElement.style.setProperty('--sjs-font-size', `${props.fontSize}`)
   if (props.componentBind) creator.text = typeof props.componentBind === 'string' ? props.componentBind : JSON.stringify(props.componentBind);
   if (props.themeBind) creator.theme = typeof props.themeBind === 'string' ? JSON.parse(props.themeBind) : props.themeBind
-  showHidePanelMenuDesigner()
 })
 
-function showHidePanelMenuDesigner() {
-  const doc = wwLib.getFrontDocument() || document
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[0].style.display = props.showMenuGeneral ? 'block' : 'none'
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[1].style.display = props.showMenuLogoInTheSurveyHeader ? 'block' : 'none'
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[2].style.display = props.showMenuNavigation ? 'block' : 'none'
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[3].style.display = props.showMenuQuestionSettings ? 'block' : 'none'
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[4].style.display = props.showMenuPages ? 'block' : 'none'
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[5].style.display = props.showMenuConditions ? 'block' : 'none'
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[6].style.display = props.showMenuData ? 'block' : 'none'
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[7].style.display = props.showMenuValidation ? 'block' : 'none'
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[8].style.display = props.showMenuThankYouPage ? 'block' : 'none'
-  doc.querySelectorAll('.spg-row.spg-clearfix.sd-page__row')[9].style.display = props.showMenuQuizMode ? 'block' : 'none'
-}
+const menuGeneralDisplay = computed(() => (!props.showMenuGeneral ? 'none' : 'block'))
+const menuLogoInSurveyHeaderDisplay = computed(() =>
+  !props.showMenuLogoInTheSurveyHeader ? 'none' : 'block'
+)
+const menuNavigationDisplay = computed(() => (!props.showMenuNavigation ? 'none' : 'block'))
+const menuQuestionSettingsDisplay = computed(() =>
+  !props.showMenuQuestionSettings ? 'none' : 'block'
+)
+const menuPagesDisplay = computed(() => (!props.showMenuPages ? 'none' : 'block'))
+const menuConditionsDisplay = computed(() => (!props.showMenuConditions ? 'none' : 'block'))
+const menuDataDisplay = computed(() => (!props.showMenuData ? 'none' : 'block'))
+const menuValidationDisplay = computed(() => (!props.showMenuValidation ? 'none' : 'block'))
+const menuThankYouPageDisplay = computed(() => (!props.showMenuThankYouPage ? 'none' : 'block'))
+const menuQuizModeDisplay = computed(() => (!props.showMenuQuizMode ? 'none' : 'block'))
 </script>
 
 
@@ -200,5 +200,45 @@ function showHidePanelMenuDesigner() {
 .sv-action-bar-item:not([disabled])[title='Save Theme'] use {
   fill: var(--ctr-menu-toolbar-button-text-color-selected,
       var(--sjs-primary-backcolor, var(--primary, #19b394)));
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Navigation']) {
+  display: v-bind('menuNavigationDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='General']) {
+  display: v-bind('menuGeneralDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Logo in the Survey Header']) {
+  display: v-bind('menuLogoInSurveyHeaderDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Question Settings']) {
+  display: v-bind('menuQuestionSettingsDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Pages']) {
+  display: v-bind('menuPagesDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Conditions']) {
+  display: v-bind('menuConditionsDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Data']) {
+  display: v-bind('menuDataDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Validation']) {
+  display: v-bind('menuValidationDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='"Thank You" Page']) {
+  display: v-bind('menuThankYouPageDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Quiz Mode']) {
+  display: v-bind('menuQuizModeDisplay');
 }
 </style>
