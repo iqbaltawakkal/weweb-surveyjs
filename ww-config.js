@@ -80,6 +80,14 @@ export default {
             defaultValue: '14px',
             bindable: true,
         },
+        storeDataAsText:{
+            label: {
+                en: 'Store data as text for upload',
+            },
+            type: 'OnOff',
+            defaultValue: true,
+            bindable: true,
+        },
         showLogicTab: {
             label: {
                 en: 'Show logic tab',

@@ -63,7 +63,8 @@ const props = defineProps({
   fontSize: { type: String },
   surveyId: { type: String },
   surveyApiUrl: { type: String },
-  themeBind: { type: String }
+  themeBind: { type: String },
+  storeDataAsText: { type: Boolean }
 })
 
 setLicenseKey(props.licenseKey)
@@ -74,7 +75,7 @@ class SurveyTemplatesTabPlugin {
     creator.addPluginTab(
       'survey-embed',
       this,
-      'Embed Survey',
+      'Embed Form',
       'svc-tab-survey-embed',
       4
     )
@@ -147,6 +148,15 @@ creator.onSelectedElementChanging.add(function (sender, options) {
     creator.showSidebar = false
   } else {
     creator.showSidebar = true
+  }
+})
+creator.onSelectedElementChanged.add(function (sender, options) {
+  if ((options?.newSelectedElement?.jsonObj?.type === 'signaturepad' || options?.newSelectedElement?.jsonObj?.type === 'file')
+    && props.storeDataAsText) {
+    setTimeout(() => {
+      const isStoreDataAsTextInput = document.querySelector('input[name="storeDataAsText"]')
+      if (isStoreDataAsTextInput) isStoreDataAsTextInput.disabled = true
+    }, 1000)
   }
 })
 
@@ -240,5 +250,13 @@ div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='"Thank You" Page']) {
 
 div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Quiz Mode']) {
   display: v-bind('menuQuizModeDisplay');
+}
+
+div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Others']) {
+  display: none;
+}
+
+.spg-selectbase__label:has(input[name='storeDataAsText'][disabled]) {
+  cursor: not-allowed;
 }
 </style>
