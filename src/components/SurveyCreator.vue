@@ -64,7 +64,7 @@ const props = defineProps({
   surveyId: { type: String },
   surveyApiUrl: { type: String },
   themeBind: { type: String },
-  storeDataAsText: { type: Boolean }
+  storeDataAsText: { type: Boolean, default: true }
 })
 
 setLicenseKey(props.licenseKey)
@@ -144,18 +144,24 @@ creator.onElementDeleting.add(function (sender, options) {
   }
 })
 creator.onSelectedElementChanging.add(function (sender, options) {
+  // logic for restrict attribute
   if (options.newSelectedElement?.jsonObj?.restrict) {
     creator.showSidebar = false
   } else {
     creator.showSidebar = true
   }
-})
-creator.onSelectedElementChanged.add(function (sender, options) {
-  if ((options?.newSelectedElement?.jsonObj?.type === 'signaturepad' || options?.newSelectedElement?.jsonObj?.type === 'file')
-    && props.storeDataAsText) {
+
+  // logic for upload force storeDataAsText
+  if (options?.newSelectedElement?.jsonObj?.type === 'signaturepad' || options?.newSelectedElement?.jsonObj?.type === 'file') {
     setTimeout(() => {
       const isStoreDataAsTextInput = document.querySelector('input[name="storeDataAsText"]')
       if (isStoreDataAsTextInput) isStoreDataAsTextInput.disabled = true
+      if (props.storeDataAsText) {
+        isStoreDataAsTextInput.value = true
+        isStoreDataAsTextInput.disabled = true
+      } else {
+        isStoreDataAsTextInput.disabled = false
+      }
     }, 1000)
   }
 })
