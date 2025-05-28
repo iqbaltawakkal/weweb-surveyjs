@@ -265,4 +265,8 @@ div.spg-row.spg-clearfix.sd-page__row:has(h4[aria-label='Others']) {
 .spg-selectbase__label:has(input[name='storeDataAsText'][disabled]) {
   cursor: not-allowed;
 }
+
+.spg-row.spg-clearfix:has(input[name='storeDataAsText'][disabled]) {
+  display: none;
+}
 </style>
